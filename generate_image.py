@@ -15,6 +15,7 @@ def scale_values(OldValue, OldRange):
 
 image = spectral.envi.open('prm20120724t221057_rdn_ort.hdr', image='prm20120724t221057_rdn_ort')
 fwhm = np.array([float(i) for i in open('fwhm.txt').read().strip().split(' , ')], dtype=np.float32)
+wavelength = [float(i) for i in open('wavelength.txt').read().strip().split(' , '))
 IMAGE = []
 IMAGE = np.zeros((1000, image.shape[1], 3), dtype=np.float32)
 for LINES in range(1000):
@@ -24,14 +25,13 @@ for LINES in range(1000):
         BANDS = image[LINES,SAMPLES]
         #Average across the spectra to retrieve values for RGB
         
-        #BLUE_LOWER = BANDS.index('0.3814931280')
-        BLUE_LOWER = 0
-        #BLUE_HIGHER = BANDS.index('0.4947720080')
-        BLUE_HIGHER = 94
+        BLUE_LOWER = wavelength.index(0.3814931280)
+        
+        BLUE_HIGHER = wavelength.index(0.4947720080)
 
-        #GREEN_LOWER = BANDS.index('0.4976051329')
-        GREEN_LOWER = 95
-        #GREEN_HIGHER = BANDS.index('0.6194827075')
+        GREEN_LOWER = wavelength.index(0.4976051329)
+       
+       GREEN_HIGHER = BANDS.index('0.6194827075')
         GREEN_HIGHER = 189
 
         #RED_LOWER = BANDS.index('0.6223183070')
